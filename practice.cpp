@@ -1,107 +1,35 @@
-Date, Iteration
-Date: 02-10-2024, Iteration: 1
-Date: 02-10-2024, Iteration: 2
-Date: 04-10-2024, Iteration: 1
-Date: 05-10-2024, Iteration: 1
-Date: 05-10-2024, Iteration: 2
-Date: 05-10-2024, Iteration: 3
-Date: 05-10-2024, Iteration: 4
-Date: 05-10-2024, Iteration: 5
-Date: 06-10-2024, Iteration: 1
-Date: 06-10-2024, Iteration: 2
-Date: 06-10-2024, Iteration: 3
-Date: 06-10-2024, Iteration: 4
-Date: 06-10-2024, Iteration: 5
-Date: 06-10-2024, Iteration: 6
-Date: 06-10-2024, Iteration: 7
-Date: 06-10-2024, Iteration: 8
-Date: 06-10-2024, Iteration: 9
-Date: 06-10-2024, Iteration: 10
-Date: 06-10-2024, Iteration: 11
-Date: 07-10-2024, Iteration: 1
-Date: 07-10-2024, Iteration: 2
-Date: 07-10-2024, Iteration: 3
-Date: 07-10-2024, Iteration: 4
-Date: 07-10-2024, Iteration: 5
-Date: 07-10-2024, Iteration: 6
-Date: 09-10-2024, Iteration: 1
-Date: 09-10-2024, Iteration: 2
-Date: 09-10-2024, Iteration: 3
-Date: 09-10-2024, Iteration: 4
-Date: 09-10-2024, Iteration: 5
-Date: 09-10-2024, Iteration: 6
-Date: 09-10-2024, Iteration: 7
-Date: 09-10-2024, Iteration: 8
-Date: 09-10-2024, Iteration: 9
-Date: 09-10-2024, Iteration: 10
-Date: 09-10-2024, Iteration: 11
-Date: 09-10-2024, Iteration: 12
-Date: 10-10-2024, Iteration: 1
-Date: 11-10-2024, Iteration: 1
-Date: 11-10-2024, Iteration: 2
-Date: 11-10-2024, Iteration: 3
-Date: 11-10-2024, Iteration: 4
-Date: 11-10-2024, Iteration: 5
-Date: 11-10-2024, Iteration: 6
-Date: 11-10-2024, Iteration: 7
-Date: 11-10-2024, Iteration: 8
-Date: 12-10-2024, Iteration: 1
-Date: 13-10-2024, Iteration: 1
-Date: 13-10-2024, Iteration: 2
-Date: 13-10-2024, Iteration: 3
-Date: 13-10-2024, Iteration: 4
-Date: 13-10-2024, Iteration: 5
-Date: 15-10-2024, Iteration: 1
-Date: 15-10-2024, Iteration: 2
-Date: 15-10-2024, Iteration: 3
-Date: 15-10-2024, Iteration: 4
-Date: 15-10-2024, Iteration: 5
-Date: 15-10-2024, Iteration: 6
-Date: 15-10-2024, Iteration: 7
-Date: 15-10-2024, Iteration: 8
-Date: 15-10-2024, Iteration: 9
-Date: 15-10-2024, Iteration: 10
-Date: 17-10-2024, Iteration: 1
-Date: 17-10-2024, Iteration: 2
-Date: 17-10-2024, Iteration: 3
-Date: 17-10-2024, Iteration: 4
-Date: 17-10-2024, Iteration: 5
-Date: 17-10-2024, Iteration: 6
-Date: 18-10-2024, Iteration: 1
-Date: 18-10-2024, Iteration: 2
-Date: 18-10-2024, Iteration: 3
-Date: 18-10-2024, Iteration: 4
-Date: 18-10-2024, Iteration: 5
-Date: 18-10-2024, Iteration: 6
-Date: 18-10-2024, Iteration: 7
-Date: 18-10-2024, Iteration: 8
-Date: 18-10-2024, Iteration: 9
-Date: 18-10-2024, Iteration: 10
-Date: 19-10-2024, Iteration: 1
-Date: 19-10-2024, Iteration: 2
-Date: 19-10-2024, Iteration: 3
-Date: 19-10-2024, Iteration: 4
-Date: 20-10-2024, Iteration: 1
-Date: 20-10-2024, Iteration: 2
-Date: 20-10-2024, Iteration: 3
-Date: 20-10-2024, Iteration: 4
-Date: 20-10-2024, Iteration: 5
-Date: 20-10-2024, Iteration: 6
-Date: 21-10-2024, Iteration: 1
-Date: 21-10-2024, Iteration: 2
-Date: 21-10-2024, Iteration: 3
-Date: 21-10-2024, Iteration: 4
-Date: 21-10-2024, Iteration: 5
-Date: 21-10-2024, Iteration: 6
-Date: 21-10-2024, Iteration: 7
-Date: 21-10-2024, Iteration: 8
-Date: 21-10-2024, Iteration: 9
-Date: 22-10-2024, Iteration: 1
-Date: 22-10-2024, Iteration: 2
-Date: 22-10-2024, Iteration: 3
-Date: 22-10-2024, Iteration: 4
-Date: 22-10-2024, Iteration: 5
-Date: 22-10-2024, Iteration: 6
-Date: 22-10-2024, Iteration: 7
-Date: 22-10-2024, Iteration: 8
-Date: 22-10-2024, Iteration: 9
+class Solution {
+public:
+    int findLengthOfShortestSubarray(vector<int>& arr) {
+        int n = arr.size();
+        int left = 0;
+        int right = n - 1;
+
+        // Edge case: if the array is already sorted
+        while (left < right && arr[left] <= arr[left + 1]) {
+            left++;
+        }
+        if (left == n - 1) return 0;
+
+        // Find the right boundary of the last sorted segment
+        while (right > 0 && arr[right] >= arr[right - 1]) {
+            right--;
+        }
+
+        // Compute the minimum length to remove
+        int answer = min(n - left - 1, right);
+
+        // Try to merge the sorted segments
+        int i = 0, j = right;
+        while (i <= left && j < n) {
+            if (arr[i] <= arr[j]) {
+                answer = min(answer, j - i - 1);
+                i++;
+            } else {
+                j++;
+            }
+        }
+
+        return answer;
+    }
+};
